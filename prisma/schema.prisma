@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  username String @unique
+  password String
+  role     Role   @default(user)
+}
+
+model Music {
+  id        Int      @id @default(autoincrement())
+  name      String
+  image     String?
+  file      String
+  artist    String? // Qo'shiqni ijro etgan artist
+  createdAt DateTime @default(now()) // Qo'shiqni qo'shilgan sanasi
+}
+
+enum Role {
+  admin
+  user
+}
